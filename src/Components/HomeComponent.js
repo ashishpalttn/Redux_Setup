@@ -1,7 +1,14 @@
 import React from 'react';
-import {StyleSheet, Text, SafeAreaView, TouchableOpacity,TextInput, ActivityIndicator} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  SafeAreaView,
+  TouchableOpacity,
+  TextInput,
+  ActivityIndicator,
+} from 'react-native';
 import {connect} from 'react-redux';
-import {toggleFlag, loginAuthentication} from '../Services/Home/action';
+import {toggleFlag, loginAuthentication} from '../Services/Authentication/action';
 class HomeComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -11,17 +18,17 @@ class HomeComponent extends React.Component {
     };
   }
   render() {
-    const {navigation, flag, login,isLoding} = this.props;
+    const {navigation, flag, login, isLoding} = this.props;
     console.log('login Responce', this.props);
-    if(isLoding==true)
-    return (<SafeAreaView style={styles.indigator}>
-      <ActivityIndicator size={'large'} color="green" />
-    </SafeAreaView>)
-      else if(login)
-      {
-      return <SafeAreaView>{navigation.navigate('List')}
+    if (isLoding == true) {
+      return (
+        <SafeAreaView style={styles.indigator}>
+          <ActivityIndicator size={'large'} color="green" />
         </SafeAreaView>
-      }
+      );
+    } else if (login) {
+      return <SafeAreaView>{navigation.navigate('List')}</SafeAreaView>;
+    }
     return (
       <SafeAreaView style={styles.container}>
         <TextInput
@@ -61,10 +68,9 @@ class HomeComponent extends React.Component {
   }
 }
 const styles = StyleSheet.create({
-  indigator:{
-    flex:1,
-    justifyContent:'center'
-  
+  indigator: {
+    flex: 1,
+    justifyContent: 'center',
   },
   login: {
     paddingHorizontal: 45,
@@ -94,7 +100,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => ({
   flag: state.homeReducer.homeFlag,
   login: state.homeReducer.loginResponce,
-  isLoding:state.homeReducer.isLoding
+  isLoding: state.homeReducer.isLoding,
 });
 const mapDispatchToProps = {
   toggleHomeFlag: toggleFlag,

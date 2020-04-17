@@ -1,12 +1,12 @@
-import {TOGGLE_FLAG,LOGIN_AUTHENICATION,IS_LOGING} from './constants'
+import {TOGGLE_FLAG, LOGIN_AUTHENICATION, IS_LOGING} from './constants';
 
 export const toggleFlag = () => dispatch => {
   dispatch({
-      type: TOGGLE_FLAG,
-      data: "true",
-  })
+    type: TOGGLE_FLAG,
+    data: 'true',
+  });
 };
-export const loginAuthentication = (username,password) => dispatch => {
+export const loginAuthentication = (username, password) => dispatch => {
   fetch(
     'https://admin-stage.priskoll.occdev.axfood.se/axfood/axfood-security/login',
 
@@ -22,14 +22,14 @@ export const loginAuthentication = (username,password) => dispatch => {
     let token = responce.headers.map.authorization;
     token = token.slice(7);
     // this.storeData(token);
-  
+
     dispatch({
       type: LOGIN_AUTHENICATION,
-      data:token
-    })
+      data: token,
+    });
   });
   dispatch({
     type: IS_LOGING,
-    data:true
-  })
-}
+    data: true,
+  });
+};
