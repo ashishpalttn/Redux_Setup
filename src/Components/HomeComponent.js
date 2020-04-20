@@ -13,13 +13,13 @@ class HomeComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: 'axfood',
-      password: 'axfood@123',
+      username: '',
+      password: '',
     };
   }
   render() {
     const {navigation, flag, login, isLoding} = this.props;
-    console.log('login Responce', this.props);
+    // console.log('login Responce', this.props);
     if (isLoding == true) {
       return (
         <SafeAreaView style={styles.indigator}>

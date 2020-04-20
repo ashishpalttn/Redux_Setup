@@ -1,16 +1,10 @@
-import {createStore,combineReducers,applyMiddleware} from 'redux';
+import {createStore, combineReducers, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
-import homeReducer from './Authentication/reducer'
+import homeReducer from './Authentication/reducer';
+import dataReducer from './Data/reducer';
 
+const reducer = combineReducers({homeReducer, dataReducer});
 
- const reducer = combineReducers({homeReducer});
+const store = createStore(reducer, applyMiddleware(thunk));
 
-
-
-
- const store = createStore(reducer,applyMiddleware(thunk))
-
-
-
-
- export default store ; 
+export default store;
