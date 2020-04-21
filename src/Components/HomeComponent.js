@@ -6,9 +6,14 @@ import {
   TouchableOpacity,
   TextInput,
   ActivityIndicator,
+  View,
 } from 'react-native';
 import {connect} from 'react-redux';
-import {toggleFlag, loginAuthentication} from '../Services/Authentication/action';
+import {
+  toggleFlag,
+  loginAuthentication,
+  storedData,
+} from '../Services/Authentication/action';
 class HomeComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -17,20 +22,27 @@ class HomeComponent extends React.Component {
       password: '',
     };
   }
+  static getDerivedStateFromProps(props) {
+    
+      props.storedData()
+    
+    if (props.login) {
+      return props.navigation.navigate('List');
+    }
+  }
   render() {
     const {navigation, flag, login, isLoding} = this.props;
-    // console.log('login Responce', this.props);
-    if (isLoding == true) {
+    console.log('login Responce', this.props);
+    if (isLoding) {
       return (
         <SafeAreaView style={styles.indigator}>
           <ActivityIndicator size={'large'} color="green" />
         </SafeAreaView>
       );
-    } else if (login) {
-      return <SafeAreaView>{navigation.navigate('List')}</SafeAreaView>;
     }
     return (
       <SafeAreaView style={styles.container}>
+        <Text style={styles.welcome}>WELCOME</Text>
         <TextInput
           style={styles.input}
           placeholder="Enter User Id"
@@ -64,10 +76,15 @@ class HomeComponent extends React.Component {
     );
   }
   componentDidMount() {
-    // this.props.toggleHomeFlag();
   }
 }
 const styles = StyleSheet.create({
+  welcome: {
+    color: '#578c0d',
+    fontSize: 40,
+    fontWeight: 'bold',
+    margin: 20,
+  },
   indigator: {
     flex: 1,
     justifyContent: 'center',
@@ -75,12 +92,12 @@ const styles = StyleSheet.create({
   login: {
     paddingHorizontal: 45,
     paddingVertical: 12,
-    backgroundColor: '#94e30b',
+    backgroundColor: '#578c0d',
     borderRadius: 20,
     marginBottom: 20,
   },
   input: {
-    backgroundColor: '#94e30b',
+    backgroundColor: '#578c0d',
     flex: 0.07,
     width: '80%',
     borderRadius: 30,
@@ -98,13 +115,14 @@ const styles = StyleSheet.create({
   },
 });
 const mapStateToProps = state => ({
-  flag: state.homeReducer.homeFlag,
   login: state.homeReducer.loginResponce,
   isLoding: state.homeReducer.isLoding,
+  token: state.homeReducer.loginResponce,
 });
 const mapDispatchToProps = {
   toggleHomeFlag: toggleFlag,
   loginPress: loginAuthentication,
+  storedData: storedData,
 };
 export default connect(
   mapStateToProps,

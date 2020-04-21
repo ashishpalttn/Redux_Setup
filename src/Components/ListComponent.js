@@ -9,32 +9,44 @@ import {
 import {connect} from 'react-redux';
 import {dataRequest} from '../Services/Data/action';
 import {FlatList} from 'react-native-gesture-handler';
+import {deleteToken} from '../Services/Authentication/action';
 class ListComponent extends React.Component {
   constructor() {
     super();
   }
+  // static getDerivedStateFromProps(props){
+  //   if (props.login=="") {
+  //     return props.navigation.navigate('Home');
+  //   }
+  // }
   render() {
     const {navigation, responceData} = this.props;
-    console.log('List props=', this.props);
+
     return (
       <SafeAreaView style={styles.container}>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate('Account');
+            this.props.signOut(), navigation.navigate('Home');
           }}>
-          <Text>Next</Text>
+          <View style={styles.buttonView}>
+            <Text> Sign Out</Text>
+          </View>
         </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Account')}>
+          <View style={[styles.buttonView, {margin: 10}]}>
+            <Text>Search</Text>
+          </View>
+        </TouchableOpacity>
+
         <FlatList
           data={responceData}
           renderItem={({item}) => (
-            <View
-              style={styles.list}>
+            <View style={styles.list}>
               <Text>{item.storeId}</Text>
               <Text>{item.storeName}</Text>
               <Text>{item.city}</Text>
               <Text>{item.storeAddress}</Text>
               <Text>{item.zipCode}</Text>
-
             </View>
           )}
         />
@@ -46,21 +58,26 @@ class ListComponent extends React.Component {
   }
 }
 const styles = StyleSheet.create({
-  list:{
-  width: '94%',
-  height: 105,
-  backgroundColor: '#b7de81',
-  marginVertical: 8,
-  padding:10,
-  borderRadius:10,
-  marginHorizontal:"3%"
-
-},
+  buttonView: {
+    alignItems: 'center',
+    padding: 10,
+    backgroundColor: 'green',
+    borderRadius: 30,
+    marginHorizontal: '30%',
+  },
+  list: {
+    width: '94%',
+    height: 105,
+    backgroundColor: '#b7de81',
+    marginVertical: 8,
+    padding: 10,
+    borderRadius: 10,
+    marginHorizontal: '3%',
+  },
   container: {
-    // flex: 1,
-    // alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'white',
+    marginBottom:30
   },
 });
 const mapStateToProps = state => ({
@@ -69,6 +86,7 @@ const mapStateToProps = state => ({
 });
 const mapDispatchToprops = {
   dataCall: dataRequest,
+  signOut: deleteToken,
 };
 export default connect(
   mapStateToProps,
