@@ -1,2 +1,3 @@
 export const DATA_REQUEST = 'DATA_REQUEST';
 export const SEARCHING = 'SEARCHING';
+export const CONCEPT_DATA ='CONCEPT_DATA'

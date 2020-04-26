@@ -5,51 +5,56 @@ import {
   SafeAreaView,
   TouchableOpacity,
   View,
+  Image,
+  FlatList,
 } from 'react-native';
 import {connect} from 'react-redux';
 import {dataRequest} from '../Services/Data/action';
-import {FlatList} from 'react-native-gesture-handler';
-import {deleteToken} from '../Services/Authentication/action';
+import {colorConstant} from '../Config/constants';
+
 class ListComponent extends React.Component {
   constructor() {
     super();
   }
-  // static getDerivedStateFromProps(props){
-  //   if (props.login=="") {
-  //     return props.navigation.navigate('Home');
-  //   }
-  // }
+
   render() {
     const {navigation, responceData} = this.props;
+    console.log('LIST', this.props);
 
     return (
       <SafeAreaView style={styles.container}>
-        <TouchableOpacity
-          onPress={() => {
-            this.props.signOut(), navigation.navigate('Home');
-          }}>
-          <View style={styles.buttonView}>
-            <Text> Sign Out</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Account')}>
-          <View style={[styles.buttonView, {margin: 10}]}>
-            <Text>Search</Text>
-          </View>
-        </TouchableOpacity>
+        <View style={styles.headerView}>
+          <TouchableOpacity onPress={() => navigation.navigate('Concept')}>
+            <Image
+              style={styles.backLogo}
+              source={require('../Assets/back.png')}
+            />
+          </TouchableOpacity>
+          <Text style={styles.storeTxt}>Select Store</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('Account')}>
+            <Image
+              style={{width: 28, height: 28}}
+              source={require('../Assets/search.png')}
+            />
+          </TouchableOpacity>
+        </View>
 
-        <FlatList
-          data={responceData}
-          renderItem={({item}) => (
-            <View style={styles.list}>
-              <Text>{item.storeId}</Text>
-              <Text>{item.storeName}</Text>
-              <Text>{item.city}</Text>
-              <Text>{item.storeAddress}</Text>
-              <Text>{item.zipCode}</Text>
-            </View>
-          )}
-        />
+        <View style={{flex: 12}}>
+          <FlatList
+            data={responceData}
+            renderItem={({item}) => (
+              <View style={styles.list}>
+                <Text style={{fontWeight: 'bold', paddingBottom: 8}}>
+                  {item.storeName}
+                </Text>
+                <View style={{flexDirection: 'row'}}>
+                  <Text style={{marginRight: 5}}>{item.city},</Text>
+                  <Text>{item.storeAddress}</Text>
+                </View>
+              </View>
+            )}
+          />
+        </View>
       </SafeAreaView>
     );
   }
@@ -58,26 +63,47 @@ class ListComponent extends React.Component {
   }
 }
 const styles = StyleSheet.create({
-  buttonView: {
-    alignItems: 'center',
-    padding: 10,
-    backgroundColor: 'green',
-    borderRadius: 30,
-    marginHorizontal: '30%',
+  backLogo: {
+    width: 28,
+    height: 28,
+    marginLeft: 15,
   },
+  storeTxt: {
+    fontWeight: 'bold',
+    width: '75%',
+    marginLeft: 10,
+    fontSize: 30,
+  },
+  headerView: {
+    flex: 1,
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginTop: 20,
+    marginBottom: 5,
+  },
+
   list: {
-    width: '94%',
+    width: '90%',
     height: 105,
-    backgroundColor: '#b7de81',
+    backgroundColor: 'white',
     marginVertical: 8,
-    padding: 10,
-    borderRadius: 10,
-    marginHorizontal: '3%',
+
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+
+    padding: 20,
+    borderRadius: 5,
+    marginHorizontal: '5%',
+    justifyContent: 'center',
   },
   container: {
+    flex: 1,
     justifyContent: 'center',
-    backgroundColor: 'white',
-    marginBottom:30
+    backgroundColor: colorConstant.whiteColor,
   },
 });
 const mapStateToProps = state => ({
@@ -86,7 +112,6 @@ const mapStateToProps = state => ({
 });
 const mapDispatchToprops = {
   dataCall: dataRequest,
-  signOut: deleteToken,
 };
 export default connect(
   mapStateToProps,

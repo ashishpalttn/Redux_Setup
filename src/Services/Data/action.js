@@ -1,7 +1,29 @@
-import {DATA_REQUEST, SEARCHING} from './constants';
+import {DATA_REQUEST, SEARCHING, CONCEPT_DATA} from './constants';
+import {apiConfig} from '../../Config/env'
+
+export const conceptDataRequest = (token) => dispatch => {
+  fetch( apiConfig.storeApi.conceptData ,
+    {
+      method: 'GET',
+      headers: {
+        authorization:token,
+      },
+    },
+  )
+    .then(responce => {
+      return responce.json();
+    })
+    .then(data => {
+      // console.log("CONCEPT_DATA",data)
+      dispatch({
+        type: CONCEPT_DATA,
+        data: data,
+      });
+    });
+};
 
 export const search = ( searchInput  ,token) => dispatch => {
-  fetch( 'https://admin-stage.priskoll.occdev.axfood.se/axfood/axfood-product-scan/searchResults/'+searchInput+'?',
+  fetch( apiConfig.storeApi.searchData+searchInput+'?',
     {
       method: 'GET',
       headers: {
@@ -20,8 +42,7 @@ export const search = ( searchInput  ,token) => dispatch => {
     });
 };
 export const dataRequest = token => dispatch => {
-  fetch(
-    'https://admin-stage.priskoll.occdev.axfood.se/axfood/axfood-product-scan/stores',
+  fetch(apiConfig.storeApi.listData,
     {
       method: 'GET',
       headers: {
@@ -33,6 +54,7 @@ export const dataRequest = token => dispatch => {
       return responce.json();
     })
     .then(data => {
+       console.log("DATA.......")
       dispatch({
         type: DATA_REQUEST,
         data: data,
