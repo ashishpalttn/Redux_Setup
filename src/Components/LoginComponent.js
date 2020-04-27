@@ -18,36 +18,34 @@ import {
   removeStatus,
 } from '../Services/Authentication/action';
 class LoginComponent extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       username: '',
       password: '',
     };
-    props.storedToken();
   }
 
   render() {
-    const {isLoding} = this.props;
-    // console.log('login ',this.props);
-    if (isLoding) {
+    const {isLoading} = this.props;
+    if (isLoading) {
       return (
         <SafeAreaView style={styles.indigator}>
-          <ActivityIndicator size={'large'} color="green" />
+          <ActivityIndicator size={'large'} color={colorConstant.orangeColor} />
         </SafeAreaView>
       );
     }
     if (!this.props.login) {
       return (
         <View style={styles.container}>
-          <View style={{flex: 1.5, flexDirection: 'column-reverse'}}>
+          <View style={styles.logoView}>
             <Image
               source={require('../Assets/axfoodLogo.png')}
               style={styles.logo}
               resizeMode="stretch"
             />
           </View>
-          <View style={{flex: 1, flexDirection: 'column-reverse'}}>
+          <View style={styles.userNameView}>
             <TextInput
               style={styles.input}
               placeholder="Enter User Id"
@@ -56,7 +54,7 @@ class LoginComponent extends React.Component {
               autoCapitalize="none"
             />
           </View>
-          <View style={{flex: 1, flexDirection: 'column-reverse'}}>
+          <View style={styles.passwordView}>
             <TextInput
               style={[styles.input, {marginBottom: 30}]}
               placeholder="Password"
@@ -70,7 +68,7 @@ class LoginComponent extends React.Component {
             <TouchableOpacity
               style={styles.login}
               onPress={() => {
-                if (!this.state.username == '' && !this.state.password == '') {
+                if (this.state.username && this.state.password) {
                   this.props.removeStatus(),
                     this.props.loginPress(
                       this.state.username,
@@ -79,9 +77,9 @@ class LoginComponent extends React.Component {
                 } else {
                   Alert.alert('Please Enter UserID and Password');
                 }
-                if (!(this.props.status == 200)) {
-                  Alert.alert('Authentication Failed');
-                }
+                // if (!(this.props.status == 200)) {
+                //   Alert.alert('Authentication Failed');
+                // }
               }}>
               <Text style={{color: colorConstant.whiteColor}}>LOGIN</Text>
             </TouchableOpacity>
@@ -97,24 +95,17 @@ class LoginComponent extends React.Component {
               </TouchableOpacity>
               <TouchableOpacity>
                 <Text
-                  style={{
-                    color: colorConstant.orangeColor,
-                    fontWeight: 'bold',
-                  }}>
-                  {' '}
+                  style={styles.signupTxt}>
                   Signup
                 </Text>
               </TouchableOpacity>
             </View>
           </View>
           <View
-            style={{
-              flex: 2,
-              flexDirection: 'column-reverse',
-            }}>
+            style={styles.vagitableImageView}>
             <Image
               source={require('../Assets/background.png')}
-              style={{width: '100%', height: '100%'}}
+              style={styles.vagitableImage}
               resizeMode="stretch"
             />
           </View>
@@ -124,9 +115,35 @@ class LoginComponent extends React.Component {
       return <View>{this.props.navigation.navigate('Concept')}</View>;
     }
   }
-  // componentDidMount() {}
+  componentDidMount() {
+    this.props.storedToken();
+  }
 }
 const styles = StyleSheet.create({
+  vagitableImage:{
+    width: '100%', 
+    height: '100%'
+  },
+  vagitableImageView:{
+    flex: 2,
+    flexDirection: 'column-reverse',
+  },
+  signupTxt:{
+    color: colorConstant.orangeColor,
+    fontWeight: 'bold',
+  },
+  passwordView:{
+    flex: 1, 
+    flexDirection: 'column-reverse'
+  },
+  userNameView:{
+    flex: 1, 
+    flexDirection: 'column-reverse'
+  },
+  logoView:{
+    flex: 1.5, 
+    flexDirection: 'column-reverse'
+  },
   newuserView: {
     flexDirection: 'row',
     alignSelf: 'center',
@@ -140,6 +157,7 @@ const styles = StyleSheet.create({
   indigator: {
     flex: 1,
     justifyContent: 'center',
+    backgroundColor:colorConstant.whiteColor
   },
   login: {
     paddingVertical: 20,
@@ -158,18 +176,19 @@ const styles = StyleSheet.create({
     borderBottomColor: colorConstant.grayColor,
     fontSize: 20,
   },
-
   container: {
     flex: 1,
     backgroundColor: colorConstant.whiteColor,
   },
 });
+
 const mapStateToProps = state => ({
-  login: state.homeReducer.loginResponce,
-  isLoding: state.homeReducer.isLoding,
-  token: state.homeReducer.loginResponce,
+  login: state.homeReducer.loginresponse,
+  isLoading: state.homeReducer.isLoading,
+  token: state.homeReducer.loginresponse,
   status: state.homeReducer.status,
 });
+
 const mapDispatchToProps = {
   loginPress: loginAuthentication,
   storedToken: storedToken,

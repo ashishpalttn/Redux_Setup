@@ -20,16 +20,17 @@ class AcountComponent extends React.Component {
     };
   }
   static getDerivedStateFromProps(props, state) {
-    if (state.searchInput.length) {
+    if (state.searchInput.length === 3) {
       props.searchName(state.searchInput, props.token);
     }
   }
   render() {
-    let flatData
     const {searchedData, navigation} = this.props;
-    if(this.state.searchInput=='')
-      flatData=[]
-      else flatData=searchedData
+    if (this.state.searchInput.length === 0) {
+      flatData = [];
+    } else {
+      flatData = searchedData;
+    }
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.headerView}>
@@ -48,7 +49,6 @@ class AcountComponent extends React.Component {
             autoCapitalize="none"
           />
         </View>
-
         <View style={{flex: 12}}>
           <FlatList
             data={flatData}
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
 });
 const mapStateToProps = state => ({
   searchedData: state.dataReducer.searchedData,
-  token: state.homeReducer.loginResponce,
+  token: state.homeReducer.loginresponse,
 });
 const mapDispatchToProps = {
   searchName: search,

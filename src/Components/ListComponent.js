@@ -13,14 +13,8 @@ import {dataRequest} from '../Services/Data/action';
 import {colorConstant} from '../Config/constants';
 
 class ListComponent extends React.Component {
-  constructor() {
-    super();
-  }
-
   render() {
-    const {navigation, responceData} = this.props;
-    console.log('LIST', this.props);
-
+    const {navigation, responseData} = this.props;
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.headerView}>
@@ -33,7 +27,7 @@ class ListComponent extends React.Component {
           <Text style={styles.storeTxt}>Select Store</Text>
           <TouchableOpacity onPress={() => navigation.navigate('Account')}>
             <Image
-              style={{width: 28, height: 28}}
+              style={styles.searchLogo}
               source={require('../Assets/search.png')}
             />
           </TouchableOpacity>
@@ -41,10 +35,10 @@ class ListComponent extends React.Component {
 
         <View style={{flex: 12}}>
           <FlatList
-            data={responceData}
+            data={responseData}
             renderItem={({item}) => (
               <View style={styles.list}>
-                <Text style={{fontWeight: 'bold', paddingBottom: 8}}>
+                <Text style={styles.storeNameTxt}>
                   {item.storeName}
                 </Text>
                 <View style={{flexDirection: 'row'}}>
@@ -63,6 +57,14 @@ class ListComponent extends React.Component {
   }
 }
 const styles = StyleSheet.create({
+  storeNameTxt:{
+    fontWeight: 'bold', 
+    paddingBottom: 8
+  },
+  searchLogo:{
+    width: 28, 
+    height: 28
+  },
   backLogo: {
     width: 28,
     height: 28,
@@ -106,9 +108,10 @@ const styles = StyleSheet.create({
     backgroundColor: colorConstant.whiteColor,
   },
 });
+
 const mapStateToProps = state => ({
-  responceData: state.dataReducer.responceData,
-  token: state.homeReducer.loginResponce,
+  responseData: state.dataReducer.responseData,
+  token: state.homeReducer.loginresponse,
 });
 const mapDispatchToprops = {
   dataCall: dataRequest,

@@ -7,8 +7,8 @@ export const apiConfig = {
   authenticationApi: {loginUserHandle: apiURL + baseURL},
 
   storeApi: {
-    conceptData: apiURL + productURL + 'concepts?',
-    listData: apiURL + productURL + 'stores',
-    searchData: apiURL + productURL + 'searchResults/',
+    conceptData: `${apiURL}${productURL}concepts?`,
+    listData: `${apiURL}${productURL}stores`,
+    searchData: `${apiURL}${productURL}searchResults/`,
   },
 };

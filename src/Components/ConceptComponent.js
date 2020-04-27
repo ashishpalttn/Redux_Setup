@@ -12,9 +12,6 @@ import {connect} from 'react-redux';
 import {conceptDataRequest} from '../Services/Data/action';
 import {colorConstant} from '../Config/constants';
 class Concept extends React.Component {
-  constructor() {
-    super();
-  }
   render() {
     const {navigation, conceptData} = this.props;
     return (
@@ -28,7 +25,6 @@ class Concept extends React.Component {
             />
           </TouchableOpacity>
         </View>
-
         <View style={{flex: 12}}>
           <FlatList
             data={conceptData}
@@ -67,7 +63,6 @@ const styles = StyleSheet.create({
   list: {
     width: '94%',
     height: 70,
-
     justifyContent: 'center',
     marginVertical: 8,
     padding: 12,
@@ -81,9 +76,10 @@ const styles = StyleSheet.create({
     backgroundColor: colorConstant.whiteColor,
   },
 });
+
 const mapStateToProps = state => ({
   conceptData: state.dataReducer.conceptData,
-  token: state.homeReducer.loginResponce,
+  token: state.homeReducer.loginresponse,
 });
 const mapDispatchToprops = {
   conceptCall: conceptDataRequest,

@@ -47,7 +47,6 @@ export const loginAuthentication = (username, password) => dispatch => {
   };
   fetch(
     apiConfig.authenticationApi.loginUserHandle,
-
     {
       method: 'POST',
       body: JSON.stringify({
@@ -55,14 +54,13 @@ export const loginAuthentication = (username, password) => dispatch => {
         password: password,
       }),
     },
-  ).then(responce => {
+  ).then(response => {
     dispatch({
       type: STATUS,
-      data: responce.status,
+      data: response.status,
     });
-    let token = responce.headers.map.authorization;
+    let token = response.headers.map.authorization;
     token = token.slice(7);
-
     dispatch({
       type: LOGIN_AUTHENICATION,
       data: token,

@@ -10,11 +10,10 @@ export const conceptDataRequest = (token) => dispatch => {
       },
     },
   )
-    .then(responce => {
-      return responce.json();
+    .then(response => {
+      return response.json();
     })
     .then(data => {
-      // console.log("CONCEPT_DATA",data)
       dispatch({
         type: CONCEPT_DATA,
         data: data,
@@ -31,8 +30,8 @@ export const search = ( searchInput  ,token) => dispatch => {
       },
     },
   )
-    .then(responce => {
-      return responce.json();
+    .then(response => {
+      return response.json();
     })
     .then(data => {
       dispatch({
@@ -50,8 +49,8 @@ export const dataRequest = token => dispatch => {
       },
     },
   )
-    .then(responce => {
-      return responce.json();
+    .then(response => {
+      return response.json();
     })
     .then(data => {
        console.log("DATA.......")

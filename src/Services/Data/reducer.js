@@ -1,6 +1,6 @@
 import {DATA_REQUEST, SEARCHING, CONCEPT_DATA} from './constants';
 const initialState = {
-  responceData: false,
+  responseData: false,
   searchedData:[]
 };
 const dataReducer = (state = initialState, action = {}) => {
@@ -8,7 +8,7 @@ const dataReducer = (state = initialState, action = {}) => {
     case CONCEPT_DATA:
       return {...state, conceptData: action.data};
     case DATA_REQUEST:
-      return {...state, responceData: action.data};
+      return {...state, responseData: action.data};
     case SEARCHING :
       return {...state,searchedData:action.data}
     default:
