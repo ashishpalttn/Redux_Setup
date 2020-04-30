@@ -36,34 +36,25 @@ class ProductDtail extends React.Component {
 
         <View style={styles.bodyView}>
           <Text style={styles.productNameTxt}>{item.productName}</Text>
-          <Text style={styles.barcodeIdTxt}>
-            {item.barcodeId}
-          </Text>
-          <Text style={styles.lastTxt}>
-            Last Scaned Detail
-          </Text>
+          <Text style={styles.barcodeIdTxt}>{item.barcodeId}</Text>
+          <Text style={styles.lastTxt}>Last Scaned Detail</Text>
 
-          <View
-            style={styles.quantityParentView}>
+          <View style={styles.quantityParentView}>
             <View style={styles.quantityView}>
-              <Text style={{color: colorConstant.darkGrayColor}}>Quantity</Text>
+              <Text style={styles.quantityTxt}>Quantity</Text>
               {!item.volumeLabel ? (
-                <Text style={{color: colorConstant.darkGrayColor}}>0Kg</Text>
+                <Text style={styles.quantityTxt}>0Kg</Text>
               ) : (
-                <Text style={{color: colorConstant.darkGrayColor}}>
-                  {item.volumeLabel}
-                </Text>
+                <Text style={styles.quantityTxt}>{item.volumeLabel}</Text>
               )}
             </View>
             <View style={styles.line} />
             <View style={styles.quantityView}>
-              <Text style={{color: colorConstant.darkGrayColor}}> Price</Text>
+              <Text style={styles.quantityTxt}> Price</Text>
               {item.price === null ? (
-                <Text style={{color: colorConstant.darkGrayColor}}>$0</Text>
+                <Text style={styles.quantityTxt}>$0</Text>
               ) : (
-                <Text style={{color: colorConstant.darkGrayColor}}>
-                  {item.price}
-                </Text>
+                <Text style={styles.quantityTxt}>{item.price}</Text>
               )}
             </View>
           </View>
@@ -73,26 +64,29 @@ class ProductDtail extends React.Component {
   }
 }
 const styles = StyleSheet.create({
-  quantityParentView:{
+  quantityTxt: {
+    color: colorConstant.darkGrayColor,
+  },
+  quantityParentView: {
     backgroundColor: colorConstant.lightGrayColor,
     marginTop: 10,
     borderRadius: 5,
   },
-  lastTxt:{
-    marginTop: 25, 
-    color: colorConstant.darkGrayColor
+  lastTxt: {
+    marginTop: 25,
+    color: colorConstant.darkGrayColor,
   },
-  barcodeIdTxt:{
-    fontSize: 16, 
-    color: colorConstant.darkGrayColor
+  barcodeIdTxt: {
+    fontSize: 16,
+    color: colorConstant.darkGrayColor,
   },
-  bodyView:{
-    flex: 12, 
-    marginHorizontal: 30
+  bodyView: {
+    flex: 12,
+    marginHorizontal: 30,
   },
-  logoutLogo:{
-    width: 28, 
-    height: 28
+  logoutLogo: {
+    width: 28,
+    height: 28,
   },
   line: {
     width: '86%',

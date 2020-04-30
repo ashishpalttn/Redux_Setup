@@ -33,16 +33,14 @@ class ListComponent extends React.Component {
           </TouchableOpacity>
         </View>
 
-        <View style={{flex: 12}}>
+        <View style={styles.bodyView}>
           <FlatList
             data={responseData}
             renderItem={({item}) => (
               <View style={styles.list}>
-                <Text style={styles.storeNameTxt}>
-                  {item.storeName}
-                </Text>
-                <View style={{flexDirection: 'row'}}>
-                  <Text style={{marginRight: 5}}>{item.city},</Text>
+                <Text style={styles.storeNameTxt}>{item.storeName}</Text>
+                <View style={styles.cityView}>
+                  <Text style={styles.cityTxt}>{item.city},</Text>
                   <Text>{item.storeAddress}</Text>
                 </View>
               </View>
@@ -57,13 +55,22 @@ class ListComponent extends React.Component {
   }
 }
 const styles = StyleSheet.create({
-  storeNameTxt:{
-    fontWeight: 'bold', 
-    paddingBottom: 8
+  cityTxt: {
+    marginRight: 5,
   },
-  searchLogo:{
-    width: 28, 
-    height: 28
+  cityView: {
+    flexDirection: 'row',
+  },
+  bodyView: {
+    flex: 12,
+  },
+  storeNameTxt: {
+    fontWeight: 'bold',
+    paddingBottom: 8,
+  },
+  searchLogo: {
+    width: 28,
+    height: 28,
   },
   backLogo: {
     width: 28,

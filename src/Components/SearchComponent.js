@@ -20,13 +20,13 @@ class AcountComponent extends React.Component {
     };
   }
   static getDerivedStateFromProps(props, state) {
-    if (state.searchInput.length === 3) {
+    if (state.searchInput.length > 2) {
       props.searchName(state.searchInput, props.token);
     }
   }
   render() {
     const {searchedData, navigation} = this.props;
-    if (this.state.searchInput.length === 0) {
+    if (this.state.searchInput.length < 3) {
       flatData = [];
     } else {
       flatData = searchedData;
@@ -49,7 +49,7 @@ class AcountComponent extends React.Component {
             autoCapitalize="none"
           />
         </View>
-        <View style={{flex: 12}}>
+        <View style={styles.bodyView}>
           <FlatList
             data={flatData}
             renderItem={({item}) => (
@@ -68,6 +68,9 @@ class AcountComponent extends React.Component {
   }
 }
 const styles = StyleSheet.create({
+  bodyView: {
+    flex: 12,
+  },
   line: {
     width: '100%',
     height: 0.5,

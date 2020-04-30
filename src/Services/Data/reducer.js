@@ -1,7 +1,8 @@
 import {DATA_REQUEST, SEARCHING, CONCEPT_DATA} from './constants';
 const initialState = {
   responseData: false,
-  searchedData:[]
+  searchedData:[],
+  conceptData: []
 };
 const dataReducer = (state = initialState, action = {}) => {
   switch (action.type) {

@@ -2,7 +2,6 @@ import { LOGIN_AUTHENICATION, IS_LOGING, STATUS} from './constants';
 import AsyncStorage from '@react-native-community/async-storage';
 import {apiConfig} from '../../Config/env'
 export const removeStatus = () => dispatch =>{
-  console.log('Status Removed........')
   dispatch({
     type : STATUS,
     data : 200
@@ -10,7 +9,6 @@ export const removeStatus = () => dispatch =>{
 }
 export const deleteToken = () => dispatch => {
   AsyncStorage.removeItem('token').then(res => {
-    console.log('tokenDeleten..........');
     dispatch({
       type: LOGIN_AUTHENICATION,
       data: '',
@@ -25,7 +23,6 @@ export const storedToken = () => dispatch => {
   });
   
   AsyncStorage.getItem('token').then(res => {
-    console.log('store_check', res);
     dispatch({
       type: LOGIN_AUTHENICATION,
       data: res,
@@ -33,10 +30,6 @@ export const storedToken = () => dispatch => {
   });
 }
 export const loginAuthentication = (username, password) => dispatch => {
-  dispatch({
-    type : STATUS,
-    data : 200
-  })
   dispatch({
     type : IS_LOGING,
     data : true

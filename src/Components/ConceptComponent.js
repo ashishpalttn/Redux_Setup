@@ -25,13 +25,13 @@ class Concept extends React.Component {
             />
           </TouchableOpacity>
         </View>
-        <View style={{flex: 12}}>
+        <View style={styles.bodyView}>
           <FlatList
             data={conceptData}
             renderItem={({item}) => (
               <TouchableOpacity onPress={() => navigation.navigate('List')}>
                 <View style={styles.list}>
-                  <Text style={{fontSize: 17}}>{item.name}</Text>
+                  <Text style={styles.listTxt}>{item.name}</Text>
                 </View>
               </TouchableOpacity>
             )}
@@ -45,7 +45,17 @@ class Concept extends React.Component {
   }
 }
 const styles = StyleSheet.create({
-  searchLogo: {width: 28, height: 28, marginLeft: 20},
+  listTxt: {
+    fontSize: 17,
+  },
+  bodyView: {
+    flex: 12,
+  },
+  searchLogo: {
+    width: 28,
+    height: 28,
+    marginLeft: 20,
+  },
   conceptTxt: {
     fontWeight: 'bold',
     width: '75%',

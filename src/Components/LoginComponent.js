@@ -27,11 +27,16 @@ class LoginComponent extends React.Component {
   }
 
   render() {
-    const {isLoading} = this.props;
+    const {isLoading,navigation} = this.props;
+    if ((this.props.status === 403)) {
+      Alert.alert('Alert Title', 'Authentication Failed', [
+        {text: 'OK', onPress: () => this.props.removeStatus()},
+      ]);
+    }
     if (isLoading) {
       return (
         <SafeAreaView style={styles.indigator}>
-          <ActivityIndicator size={'large'} color={colorConstant.orangeColor} />
+          <ActivityIndicator size={'large'} />
         </SafeAreaView>
       );
     }
@@ -64,45 +69,34 @@ class LoginComponent extends React.Component {
               secureTextEntry={true}
             />
           </View>
-          <View style={{flex: 1.5}}>
+          <View style={styles.loginView}>
             <TouchableOpacity
               style={styles.login}
               onPress={() => {
                 if (this.state.username && this.state.password) {
-                  this.props.removeStatus(),
-                    this.props.loginPress(
-                      this.state.username,
-                      this.state.password,
-                    );
+                  this.props.loginPress(
+                    this.state.username,
+                    this.state.password,
+                  );
                 } else {
                   Alert.alert('Please Enter UserID and Password');
                 }
-                // if (!(this.props.status == 200)) {
-                //   Alert.alert('Authentication Failed');
-                // }
               }}>
-              <Text style={{color: colorConstant.whiteColor}}>LOGIN</Text>
+              <Text style={styles.loginTxt}>LOGIN</Text>
             </TouchableOpacity>
             <TouchableOpacity>
-              <Text
-                style={{alignSelf: 'center', color: colorConstant.grayColor}}>
-                Forget Password?
-              </Text>
+              <Text style={styles.forgetTxt}>Forget Password?</Text>
             </TouchableOpacity>
             <View style={styles.newuserView}>
               <TouchableOpacity>
-                <Text style={{color: colorConstant.grayColor}}>New User?</Text>
+                <Text style={styles.newuserTxt}>New User?</Text>
               </TouchableOpacity>
               <TouchableOpacity>
-                <Text
-                  style={styles.signupTxt}>
-                  Signup
-                </Text>
+                <Text style={styles.signupTxt}>Signup</Text>
               </TouchableOpacity>
             </View>
           </View>
-          <View
-            style={styles.vagitableImageView}>
+          <View style={styles.vagitableImageView}>
             <Image
               source={require('../Assets/background.png')}
               style={styles.vagitableImage}
@@ -112,7 +106,7 @@ class LoginComponent extends React.Component {
         </View>
       );
     } else {
-      return <View>{this.props.navigation.navigate('Concept')}</View>;
+      return <View>{navigation.navigate('Concept')}</View>;
     }
   }
   componentDidMount() {
@@ -120,29 +114,42 @@ class LoginComponent extends React.Component {
   }
 }
 const styles = StyleSheet.create({
-  vagitableImage:{
-    width: '100%', 
-    height: '100%'
+  loginTxt: {
+    color: colorConstant.whiteColor,
   },
-  vagitableImageView:{
+  forgetTxt: {
+    alignSelf: 'center',
+    color: colorConstant.grayColor,
+  },
+  newuserTxt: {
+    color: colorConstant.grayColor,
+  },
+  loginView: {
+    flex: 1.5,
+  },
+  vagitableImage: {
+    width: '100%',
+    height: '100%',
+  },
+  vagitableImageView: {
     flex: 2,
     flexDirection: 'column-reverse',
   },
-  signupTxt:{
+  signupTxt: {
     color: colorConstant.orangeColor,
     fontWeight: 'bold',
   },
-  passwordView:{
-    flex: 1, 
-    flexDirection: 'column-reverse'
+  passwordView: {
+    flex: 1,
+    flexDirection: 'column-reverse',
   },
-  userNameView:{
-    flex: 1, 
-    flexDirection: 'column-reverse'
+  userNameView: {
+    flex: 1,
+    flexDirection: 'column-reverse',
   },
-  logoView:{
-    flex: 1.5, 
-    flexDirection: 'column-reverse'
+  logoView: {
+    flex: 1.5,
+    flexDirection: 'column-reverse',
   },
   newuserView: {
     flexDirection: 'row',
@@ -157,7 +164,7 @@ const styles = StyleSheet.create({
   indigator: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor:colorConstant.whiteColor
+    backgroundColor: colorConstant.whiteColor,
   },
   login: {
     paddingVertical: 20,

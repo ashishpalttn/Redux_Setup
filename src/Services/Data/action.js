@@ -53,7 +53,6 @@ export const dataRequest = token => dispatch => {
       return response.json();
     })
     .then(data => {
-       console.log("DATA.......")
       dispatch({
         type: DATA_REQUEST,
         data: data,
