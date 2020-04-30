@@ -110,7 +110,7 @@ class LoginComponent extends React.Component {
     }
   }
   componentDidMount() {
-    this.props.storedToken();
+    // this.props.storedToken();
   }
 }
 const styles = StyleSheet.create({
